@@ -144,9 +144,10 @@ if __name__ == "__main__":
     flag = 1
     start = ""
     for line in grammar:
-        l = re.split("( |->|\n|\||)*", line)
+        line = line.replace(" ", "").replace("\n", "")
+        l = line.split("->")
         lhs = l[0]
-        rhs = set(l[1:-1]) - {''}
+        rhs = l[1].split("|")
         if flag:
             flag = 0
             start = lhs
@@ -178,4 +179,8 @@ if __name__ == "__main__":
     ll1Table = ll1(follow_dict, productions)
 
     # parse("edcc", start, ll1Table)
-    parse("aabd", start, ll1Table)
+    while(True):
+        st = input("Enter the string: ")
+        if(st == "bas kro"):
+            break
+        parse(st, start, ll1Table)
